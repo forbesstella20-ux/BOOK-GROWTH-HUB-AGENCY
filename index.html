@@ -1,0 +1,3095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stella Forbes | Book Marketing Expert & Specialist</title>
+    <meta name="description" content="Stella Forbes - Professional Book Marketing Expert helping authors increase visibility, drive sales, and build powerful author brands worldwide.">
+    <meta name="keywords" content="book marketing, author branding, Amazon book marketing, book launch strategy, Stella Forbes">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+    <style>
+        /* ============================================
+           CSS VARIABLES & ROOT
+        ============================================ */
+        :root {
+            --primary-gold: #C9A84C;
+            --primary-gold-light: #E8D48B;
+            --primary-gold-dark: #A88B3A;
+            --deep-navy: #0A1628;
+            --navy-medium: #121E33;
+            --navy-light: #1A2A44;
+            --cream: #FAF6EE;
+            --cream-dark: #F0E8D8;
+            --white: #FFFFFF;
+            --text-dark: #1A1A1A;
+            --text-medium: #4A4A4A;
+            --text-light: #8A8A8A;
+            --burgundy: #722F37;
+            --emerald: #1B5E3B;
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-medium: 0 8px 40px rgba(0,0,0,0.12);
+            --shadow-strong: 0 16px 60px rgba(0,0,0,0.2);
+            --shadow-gold: 0 8px 30px rgba(201,168,76,0.3);
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        /* ============================================
+           PRELOADER
+        ============================================ */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--deep-navy);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .preloader-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .preloader-logo span {
+            color: var(--white);
+        }
+
+        .preloader-bar-container {
+            width: 200px;
+            height: 3px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .preloader-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-gold), var(--primary-gold-light));
+            border-radius: 10px;
+            animation: loadBar 2s ease forwards;
+        }
+
+        @keyframes loadBar {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        .preloader-text {
+            font-family: 'Montserrat', sans-serif;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 20px;
+            animation: pulse 1.5s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* ============================================
+           GLOBAL RESET & BASE
+        ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            background: var(--white);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            line-height: 1.3;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition-smooth);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        /* ============================================
+           CUSTOM SCROLLBAR
+        ============================================ */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--deep-navy);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gold);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-gold-light);
+        }
+
+        /* ============================================
+           NAVIGATION
+        ============================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            z-index: 1000;
+            transition: var(--transition-smooth);
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 22, 40, 0.97);
+            padding: 12px 0;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 1px;
+        }
+
+        .nav-logo span {
+            color: var(--primary-gold);
+        }
+
+        .nav-logo .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            margin-left: 3px;
+            animation: dotPulse 2s ease infinite;
+        }
+
+        @keyframes dotPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.5); }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gold);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta-btn {
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-gold-dark));
+            color: var(--deep-navy) !important;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .nav-cta-btn::after {
+            display: none !important;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--white);
+            transition: var(--transition-smooth);
+        }
+
+        .mobile-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ============================================
+           HERO SECTION
+        ============================================ */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--deep-navy) 0%, var(--navy-medium) 50%, var(--navy-light) 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: floatGlow 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: floatGlow 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes floatGlow {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.05); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: floatParticle linear infinite;
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text {
+            color: var(--white);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(201,168,76,0.15);
+            border: 1px solid rgba(201,168,76,0.3);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary-gold);
+            margin-bottom: 25px;
+        }
+
+        .hero-badge i {
+            font-size: 0.6rem;
+            animation: starSpin 3s linear infinite;
+        }
+
+        @keyframes starSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 25px;
+        }
+
+        .hero-title .highlight {
+            color: var(--primary-gold);
+            position: relative;
+        }
+
+        .hero-title .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: rgba(201,168,76,0.2);
+            z-index: -1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.8;
+            margin-bottom: 40px;
+            font-weight: 300;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-gold-dark));
+            color: var(--deep-navy);
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border: 2px solid rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-gold);
+            color: var(--primary-gold);
+            transform: translateY(-3px);
+        }
+
+        .hero-image-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-image-container {
+            position: relative;
+            width: 400px;
+            height: 480px;
+        }
+
+        .hero-image-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid rgba(201,168,76,0.3);
+            border-radius: 20px;
+            transform: rotate(3deg);
+        }
+
+        .hero-image-main {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-strong);
+        }
+
+        .hero-image-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .hero-image-main:hover img {
+            transform: scale(1.05);
+        }
+
+        .hero-floating-card {
+            position: absolute;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-medium);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: floatCard 4s ease-in-out infinite;
+        }
+
+        .hero-floating-card.card-1 {
+            top: 20%;
+            right: -50px;
+            animation-delay: 0s;
+        }
+
+        .hero-floating-card.card-2 {
+            bottom: 15%;
+            left: -40px;
+            animation-delay: 2s;
+        }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .floating-card-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .floating-card-icon.gold {
+            background: rgba(201,168,76,0.15);
+            color: var(--primary-gold-dark);
+        }
+
+        .floating-card-icon.green {
+            background: rgba(27,94,59,0.15);
+            color: var(--emerald);
+        }
+
+        .floating-card-text h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .floating-card-text p {
+            font-size: 0.7rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-gold);
+            display: block;
+        }
+
+        .hero-stat-label {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        /* ============================================
+           TRUST BAR
+        ============================================ */
+        .trust-bar {
+            background: var(--cream);
+            padding: 40px 0;
+            border-bottom: 1px solid rgba(201,168,76,0.2);
+        }
+
+        .trust-bar-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition-smooth);
+        }
+
+        .trust-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .trust-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-gold-dark));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.2rem;
+        }
+
+        .trust-text h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--deep-navy);
+        }
+
+        .trust-text p {
+            font-size: 0.7rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        /* ============================================
+           SECTION HEADERS
+        ============================================ */
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--primary-gold);
+            margin-bottom: 15px;
+        }
+
+        .section-label::before,
+        .section-label::after {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--primary-gold);
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--deep-navy);
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-medium);
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        /* ============================================
+           INTRO / PROBLEM SECTION
+        ============================================ */
+        .intro-section {
+            background: var(--white);
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .intro-image-side {
+            position: relative;
+        }
+
+        .intro-image-box {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+            position: relative;
+        }
+
+        .intro-image-box img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .intro-image-box:hover img {
+            transform: scale(1.03);
+        }
+
+        .intro-experience-badge {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-gold-dark));
+            color: var(--deep-navy);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow-gold);
+        }
+
+        .intro-experience-badge h3 {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .intro-experience-badge p {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .intro-text-side h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--deep-navy);
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+
+        .intro-text-side h2 span {
+            color: var(--primary-gold);
+        }
+
+        .intro-text-side p {
+            color: var(--text-medium);
+            margin-bottom: 20px;
+            line-height: 1.9;
+            font-size: 0.95rem;
+        }
+
+        .intro-text-side .intro-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-gold-dark);
+            margin-top: 10px;
+        }
+
+        .intro-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .intro-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .intro-feature i {
+            color: var(--primary-gold);
+            font-size: 0.9rem;
+        }
+
+        /* ============================================
+           WHY CHOOSE ME SECTION
+        ============================================ */
+        .why-section {
+            background: var(--deep-navy);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A84C' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .why-section .section-title {
+            color: var(--white);
+        }
+
+        .why-section .section-subtitle {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .why-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(201,168,76,0.15);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-gold), var(--primary-gold-light));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .why-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .why-card:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-10px);
+            border-color: rgba(201,168,76,0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .why-card-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, rgba(201,168,76,0.2), rgba(201,168,76,0.1));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 1.5rem;
+            color: var(--primary-gold);
+            transition: var(--transition-smooth);
+        }
+
+        .why-card:hover .why-card-icon {
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-gold-dark));
+            color: var(--deep-navy);
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .why-card h3 {
+            color: var(--white);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .why-card p {
+            color: rgba(255,255,255,0.55);
+            font-size: 0.85rem;
+            line-height: 1.8;
+        }
+
+        /* ============================================
+           SERVICES SECTION
+        ============================================ */
+        .services-section {
+            background: var(--cream);
+            position: relative;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px 30px;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-gold), var(--primary-gold-light));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .service-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: rgba(201,168,76,0.15);
+            position: absolute;
+            top: 20px;
+            right: 25px;
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-gold-dark));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            transition: var(--transition-smooth);
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(-5deg);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .service-card h3 {
+            font-size: 1.2rem;
+            color: var(--deep-navy);
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: var(--text-medium);
+            font-size: 0.85rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .service-features {
+            list-style: none;
+        }
+
+        .service-features li {
+            font-size: 0.8rem;
+            color: var(--text-medium);
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .service-features li i {
+            color: var(--primary-gold);
+            font-size: 0.7rem;
+        }
+
+        /* ============================================
+           ABOUT / MISSION SECTION
+        ============================================ */
+        .about-section {
+            background: var(--white);
+            position: relative;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            color: var(--deep-navy);
+            margin-bottom: 25px;
+        }
+
+        .about-text h2 span {
+            color: var(--primary-gold);
+        }
+
+        .about-text p {
+            color: var(--text-medium);
+            line-height: 1.9;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .mission-box {
+            background: linear-gradient(135deg, var(--deep-navy), var(--navy-medium));
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-box::before {
+            content: '"';
+            font-family: 'Playfair Display', serif;
+            font-size: 8rem;
+            color: rgba(201,168,76,0.1);
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            line-height: 1;
+        }
+
+        .mission-box p {
+            color: var(--primary-gold-light);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            line-height: 1.8;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-values {
+            display: grid;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .about-value {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .about-value i {
+            color: var(--primary-gold);
+            font-size: 1rem;
+        }
+
+        .about-image-side {
+            position: relative;
+        }
+
+        .about-image-collage {
+            position: relative;
+            height: 550px;
+        }
+
+        .about-img-1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 70%;
+            height: 65%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+            z-index: 2;
+        }
+
+        .about-img-1 img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-img-2 {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60%;
+            height: 55%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+            border: 5px solid var(--white);
+            z-index: 3;
+        }
+
+        .about-img-2 img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-decoration {
+            position: absolute;
+            top: 30%;
+            right: 10%;
+            width: 80px;
+            height: 80px;
+            border: 3px solid var(--primary-gold);
+            border-radius: 20px;
+            transform: rotate(45deg);
+            z-index: 1;
+            animation: spinSlow 15s linear infinite;
+        }
+
+        @keyframes spinSlow {
+            0% { transform: rotate(45deg); }
+            100% { transform: rotate(405deg); }
+        }
+
+        /* ============================================
+           TESTIMONIALS SECTION
+        ============================================ */
+        .testimonials-section {
+            background: linear-gradient(135deg, var(--deep-navy), var(--navy-medium));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(201,168,76,0.08), transparent 70%);
+            border-radius: 50%;
+        }
+
+        .testimonials-section .section-title {
+            color: var(--white);
+        }
+
+        .testimonials-section .section-subtitle {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(201,168,76,0.2);
+            border-radius: 20px;
+            padding: 35px;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-8px);
+            border-color: rgba(201,168,76,0.5);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author-pic {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--primary-gold);
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .testimonial-author-pic:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .testimonial-author-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial-author-info h4 {
+            color: var(--white);
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .testimonial-author-info .author-email {
+            color: var(--primary-gold);
+            font-size: 0.72rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 3px;
+            word-break: break-all;
+        }
+
+        .testimonial-author-info .author-email:hover {
+            color: var(--primary-gold-light);
+        }
+
+        .testimonial-stars {
+            color: var(--primary-gold);
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 3px;
+        }
+
+        .testimonial-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.75);
+            font-style: italic;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            position: relative;
+            padding-left: 20px;
+            border-left: 3px solid rgba(201,168,76,0.3);
+        }
+
+        .testimonial-book-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .testimonial-book-cover {
+            width: 70px;
+            height: 100px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .testimonial-book-cover:hover {
+            transform: scale(1.08) rotate(-2deg);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .testimonial-book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial-book-info {
+            flex: 1;
+        }
+
+        .testimonial-book-info p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .amazon-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+            background: rgba(255,153,0,0.15);
+            border: 1px solid rgba(255,153,0,0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #FF9900;
+            letter-spacing: 0.5px;
+            transition: var(--transition-smooth);
+        }
+
+        .amazon-link:hover {
+            background: rgba(255,153,0,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,153,0,0.2);
+        }
+
+        .amazon-link img {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* ============================================
+           PERSONAL STATEMENT SECTION
+        ============================================ */
+        .statement-section {
+            background: var(--cream);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .statement-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 60px;
+            align-items: center;
+            background: var(--white);
+            border-radius: 30px;
+            padding: 60px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(201,168,76,0.15);
+            position: relative;
+        }
+
+        .statement-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-gold), var(--primary-gold-light), var(--primary-gold));
+            border-radius: 30px 30px 0 0;
+        }
+
+        .statement-image {
+            width: 250px;
+            height: 300px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .statement-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .statement-text h2 {
+            font-size: 2rem;
+            color: var(--deep-navy);
+            margin-bottom: 20px;
+        }
+
+        .statement-text h2 span {
+            color: var(--primary-gold);
+        }
+
+        .statement-text blockquote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            color: var(--text-medium);
+            font-style: italic;
+            line-height: 2;
+            margin-bottom: 25px;
+            padding-left: 25px;
+            border-left: 4px solid var(--primary-gold);
+        }
+
+        .statement-signature {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .statement-signature .sig-line {
+            width: 40px;
+            height: 2px;
+            background: var(--primary-gold);
+        }
+
+        .statement-signature .sig-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--deep-navy);
+        }
+
+        .statement-signature .sig-title {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .statement-email {
+            margin-top: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-gold-dark);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* ============================================
+           CONTACT SECTION
+        ============================================ */
+        .contact-section {
+            background: var(--white);
+            position: relative;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-info {
+            padding-right: 40px;
+        }
+
+        .contact-info h2 {
+            font-size: 2.5rem;
+            color: var(--deep-navy);
+            margin-bottom: 20px;
+        }
+
+        .contact-info h2 span {
+            color: var(--primary-gold);
+        }
+
+        .contact-info > p {
+            color: var(--text-medium);
+            line-height: 1.8;
+            margin-bottom: 35px;
+        }
+
+        .contact-details {
+            display: grid;
+            gap: 25px;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-detail-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-gold-dark));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-detail h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--deep-navy);
+            margin-bottom: 4px;
+        }
+
+        .contact-detail p, .contact-detail a {
+            font-size: 0.85rem;
+            color: var(--text-medium);
+        }
+
+        .contact-detail a:hover {
+            color: var(--primary-gold);
+        }
+
+        .contact-form-wrapper {
+            background: var(--cream);
+            border-radius: 25px;
+            padding: 45px;
+            border: 1px solid rgba(201,168,76,0.15);
+        }
+
+        .contact-form-wrapper h3 {
+            font-size: 1.5rem;
+            color: var(--deep-navy);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid rgba(0,0,0,0.08);
+            border-radius: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            background: var(--white);
+            transition: var(--transition-smooth);
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 4px rgba(201,168,76,0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-gold-dark));
+            color: var(--deep-navy);
+            border: none;
+            border-radius: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .form-submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-gold);
+        }
+
+        /* ============================================
+           CTA SECTION
+        ============================================ */
+        .cta-section {
+            background: linear-gradient(135deg, var(--deep-navy), var(--navy-medium));
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(201,168,76,0.1), transparent 70%);
+            border-radius: 50%;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-content h2 {
+            font-size: 2.8rem;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .cta-content h2 span {
+            color: var(--primary-gold);
+        }
+
+        .cta-content p {
+            color: rgba(255,255,255,0.65);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto 35px;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ============================================
+           FOOTER
+        ============================================ */
+        .footer {
+            background: #050D1A;
+            padding: 60px 0 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .footer-brand .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+
+        .footer-brand .footer-logo span {
+            color: var(--primary-gold);
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.45);
+            font-size: 0.85rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-social a:hover {
+            background: var(--primary-gold);
+            color: var(--deep-navy);
+            border-color: var(--primary-gold);
+            transform: translateY(-3px);
+        }
+
+        .footer-column h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary-gold);
+            margin-bottom: 20px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary-gold);
+            padding-left: 5px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .footer-contact-item i {
+            color: var(--primary-gold);
+            font-size: 0.85rem;
+            width: 20px;
+        }
+
+        .footer-contact-item span,
+        .footer-contact-item a {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+        }
+
+        .footer-contact-item a:hover {
+            color: var(--primary-gold);
+        }
+
+        .footer-bottom {
+            padding: 25px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-bottom p {
+            color: rgba(255,255,255,0.3);
+            font-size: 0.78rem;
+        }
+
+        .footer-bottom p span {
+            color: var(--primary-gold);
+        }
+
+        .footer-badges {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .footer-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .footer-badge i {
+            color: var(--primary-gold);
+            font-size: 0.7rem;
+        }
+
+        /* ============================================
+           BACK TO TOP
+        ============================================ */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-gold-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--deep-navy);
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        /* ============================================
+           ANIMATIONS
+        ============================================ */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .animate-fadeInLeft {
+            animation: fadeInLeft 0.8s ease forwards;
+        }
+
+        .animate-fadeInRight {
+            animation: fadeInRight 0.8s ease forwards;
+        }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+        ============================================ */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-subtitle {
+                margin: 0 auto 40px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-image-wrapper {
+                display: none;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .intro-grid,
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .intro-image-side {
+                order: -1;
+            }
+
+            .why-grid,
+            .services-grid,
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .statement-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .statement-image {
+                margin: 0 auto;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: var(--deep-navy);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 25px;
+                transition: right 0.4s ease;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.3);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .why-grid,
+            .services-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-bar-content {
+                gap: 30px;
+            }
+
+            .section-padding {
+                padding: 60px 0;
+            }
+
+            .contact-info {
+                padding-right: 0;
+            }
+
+            .contact-form-wrapper {
+                padding: 30px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .statement-container {
+                padding: 30px 20px;
+            }
+
+            .cta-content h2 {
+                font-size: 2rem;
+            }
+
+            .about-image-collage {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .hero-stats {
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+
+            .trust-bar-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .btn-primary, .btn-secondary {
+                padding: 14px 28px;
+                font-size: 0.75rem;
+            }
+
+            .intro-experience-badge {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                margin-top: 15px;
+                display: inline-block;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         PRELOADER
+    ============================================ -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-logo">Stella <span>Forbes</span></div>
+        <div class="preloader-bar-container">
+            <div class="preloader-bar"></div>
+        </div>
+        <p class="preloader-text">Loading Excellence...</p>
+    </div>
+
+    <!-- ============================================
+         NAVIGATION
+    ============================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">Stella <span>Forbes</span><span class="dot"></span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" onclick="closeMenu()">Home</a></li>
+                <li><a href="#about-intro" onclick="closeMenu()">About</a></li>
+                <li><a href="#services" onclick="closeMenu()">Services</a></li>
+                <li><a href="#testimonials" onclick="closeMenu()">Testimonials</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+                <li><a href="#contact" class="nav-cta-btn" onclick="closeMenu()">Work With Me</a></li>
+            </ul>
+            <div class="mobile-toggle" id="mobileToggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         HERO SECTION
+    ============================================ -->
+    <section class="hero" id="home">
+        <!-- Floating Particles -->
+        <div class="particle" style="left:10%; animation-duration:12s; animation-delay:0s; width:3px; height:3px;"></div>
+        <div class="particle" style="left:25%; animation-duration:15s; animation-delay:2s; width:5px; height:5px;"></div>
+        <div class="particle" style="left:45%; animation-duration:10s; animation-delay:4s; width:2px; height:2px;"></div>
+        <div class="particle" style="left:65%; animation-duration:18s; animation-delay:1s; width:4px; height:4px;"></div>
+        <div class="particle" style="left:80%; animation-duration:14s; animation-delay:3s; width:3px; height:3px;"></div>
+        <div class="particle" style="left:90%; animation-duration:11s; animation-delay:5s; width:6px; height:6px;"></div>
+        <div class="particle" style="left:35%; animation-duration:16s; animation-delay:6s; width:3px; height:3px;"></div>
+        <div class="particle" style="left:55%; animation-duration:13s; animation-delay:7s; width:4px; height:4px;"></div>
+
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-badge" data-aos="fade-down" data-aos-delay="300">
+                        <i class="fas fa-star"></i>
+                        Book Marketing Expert & Specialist
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h1 class="hero-title" data-aos="fade-up" data-aos-delay="500">
+                        Your Book Deserves to Be <span class="highlight">Seen, Read & Sold.</span>
+                    </h1>
+                    <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="700">
+                        I help authors transform their books into powerful brands — increasing visibility, driving consistent sales, and building an audience that keeps growing. You wrote an incredible book. Now let's make sure the world finds it.
+                    </p>
+                    <div class="hero-buttons" data-aos="fade-up" data-aos-delay="900">
+                        <a href="#contact" class="btn-primary">
+                            <i class="fas fa-rocket"></i> Work With Me
+                        </a>
+                        <a href="#services" class="btn-secondary">
+                            <i class="fas fa-eye"></i> See What I Do
+                        </a>
+                    </div>
+                    <div class="hero-stats" data-aos="fade-up" data-aos-delay="1100">
+                        <div class="hero-stat">
+                            <span class="hero-stat-number" data-count="100">0</span>
+                            <span class="hero-stat-label">Authors Helped</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="hero-stat-number" data-count="300">0</span>
+                            <span class="hero-stat-label">% Avg Sales Increase</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="hero-stat-number" data-count="5">0</span>
+                            <span class="hero-stat-label">Star Rating</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="hero-stat-number" data-count="3">0</span>
+                            <span class="hero-stat-label">Continents Served</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image-wrapper" data-aos="fade-left" data-aos-delay="600">
+                    <div class="hero-image-container">
+                        <div class="hero-image-frame"></div>
+                        <div class="hero-image-main">
+                            <img src="images (9).png" alt="Stella Forbes - Book Marketing Expert">
+                        </div>
+                        <div class="hero-floating-card card-1">
+                            <div class="floating-card-icon gold">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="floating-card-text">
+                                <h4>300% Growth</h4>
+                                <p>Average Sales Boost</p>
+                            </div>
+                        </div>
+                        <div class="hero-floating-card card-2">
+                            <div class="floating-card-icon green">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="floating-card-text">
+                                <h4>5-Star Rated</h4>
+                                <p>By 100+ Authors</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         TRUST BAR
+    ============================================ -->
+    <div class="trust-bar">
+        <div class="container">
+            <div class="trust-bar-content">
+                <div class="trust-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="trust-icon"><i class="fas fa-book-open"></i></div>
+                    <div class="trust-text">
+                        <h4>100+</h4>
+                        <p>Authors Helped</p>
+                    </div>
+                </div>
+                <div class="trust-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="trust-icon"><i class="fas fa-star"></i></div>
+                    <div class="trust-text">
+                        <h4>5-Star</h4>
+                        <p>Client Rating</p>
+                    </div>
+                </div>
+                <div class="trust-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="trust-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="trust-text">
+                        <h4>300%</h4>
+                        <p>Avg Sales Increase</p>
+                    </div>
+                </div>
+                <div class="trust-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="trust-icon"><i class="fas fa-globe-americas"></i></div>
+                    <div class="trust-text">
+                        <h4>Global</h4>
+                        <p>Worldwide Authors</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         INTRO SECTION
+    ============================================ -->
+    <section class="intro-section section-padding" id="about-intro">
+        <div class="container">
+            <div class="intro-grid">
+                <div class="intro-image-side" data-aos="fade-right" data-aos-duration="1000">
+                    <div class="intro-image-box">
+                        <img src="images (9).png" alt="Stella Forbes - Book Marketing Specialist">
+                    </div>
+                    <div class="intro-experience-badge">
+                        <h3>5+</h3>
+                        <p>Years Expert</p>
+                    </div>
+                </div>
+                <div class="intro-text-side" data-aos="fade-left" data-aos-duration="1000">
+                    <h2>Is Your Book Getting <span>Lost in the Crowd?</span></h2>
+                    <p>
+                        Every single day, thousands of books are published — and most of them disappear without anyone noticing. Not because they are bad books. Not because the authors aren't talented. But because <strong>without the right marketing strategy</strong>, even the best book in the world goes unread.
+                    </p>
+                    <p>
+                        That's where I come in. My name is <strong>Stella Forbes</strong>, and I am a dedicated Book Marketing Expert and Specialist. I work with authors just like you — passionate, hardworking, and ready to see their books succeed.
+                    </p>
+                    <p>
+                        I don't just create marketing plans. I create <strong>results</strong>. Together, we will put your book in front of the right readers, at the right time, on the right platforms — and turn your passion project into a profitable, powerful publishing brand.
+                    </p>
+                    <p class="intro-name">— Stella Forbes</p>
+                    <div class="intro-features">
+                        <div class="intro-feature"><i class="fas fa-check-circle"></i> Proven Strategies</div>
+                        <div class="intro-feature"><i class="fas fa-check-circle"></i> Personalized Plans</div>
+                        <div class="intro-feature"><i class="fas fa-check-circle"></i> Real Results</div>
+                        <div class="intro-feature"><i class="fas fa-check-circle"></i> Global Reach</div>
+                        <div class="intro-feature"><i class="fas fa-check-circle"></i> Fast Turnaround</div>
+                        <div class="intro-feature"><i class="fas fa-check-circle"></i> 5-Star Service</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         WHY CHOOSE ME SECTION
+    ============================================ -->
+    <section class="why-section section-padding" id="why">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <div class="section-label"><span>Why Choose Me</span></div>
+                <h2 class="section-title">What Makes Me <span class="gradient-text">Different</span></h2>
+                <p class="section-subtitle">Very few combine deep industry knowledge, proven strategies, creative execution, and genuine passion for an author's success.</p>
+            </div>
+            <div class="why-grid">
+                <div class="why-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="why-card-icon"><i class="fas fa-bullseye"></i></div>
+                    <h3>Strategy-First Approach</h3>
+                    <p>Every marketing plan I create is built on solid research, platform knowledge, and a deep understanding of your book, your goals, and your target audience. No guesswork. Ever.</p>
+                </div>
+                <div class="why-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="why-card-icon"><i class="fas fa-chart-bar"></i></div>
+                    <h3>Results That Speak</h3>
+                    <p>I measure success in numbers — more sales, more reviews, more visibility. Everything I do is tied to real, trackable outcomes that grow your book's performance over time.</p>
+                </div>
+                <div class="why-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="why-card-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Personal & Dedicated</h3>
+                    <p>You are not a ticket number. You are an author with a vision, and I treat your book like it's my own. Every client gets focused, personalized attention from start to finish.</p>
+                </div>
+                <div class="why-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="why-card-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h3>Full-Spectrum Expertise</h3>
+                    <p>From Amazon optimization to social media marketing, author branding to book launch campaigns — I cover every angle of book marketing so nothing falls through the cracks.</p>
+                </div>
+                <div class="why-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="why-card-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Fast Turnaround</h3>
+                    <p>Timing in book marketing is everything. I work efficiently without compromising quality so your campaign launches at exactly the right moment for maximum impact.</p>
+                </div>
+                <div class="why-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="why-card-icon"><i class="fas fa-globe"></i></div>
+                    <h3>Global Reach</h3>
+                    <p>I have helped authors from across the world reach audiences they never imagined possible — expanding their readership beyond borders and beyond expectations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SERVICES SECTION
+    ============================================ -->
+    <section class="services-section section-padding" id="services">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <div class="section-label"><span>My Services</span></div>
+                <h2 class="section-title">Everything You Need to <span class="gradient-text">Market Your Book</span></h2>
+                <p class="section-subtitle">From launch day to long-term growth, I provide complete book marketing solutions tailored specifically for you.</p>
+            </div>
+            <div class="services-grid">
+                <!-- Service 1 -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <span class="service-number">01</span>
+                    <div class="service-icon"><i class="fas fa-rocket"></i></div>
+                    <h3>Book Launch Strategy</h3>
+                    <p>Launch with impact. A powerful, step-by-step launch campaign that builds anticipation, maximizes sales on launch day, and sustains momentum long after.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Pre-launch campaign & timeline</li>
+                        <li><i class="fas fa-check"></i> ARC reader engagement strategy</li>
+                        <li><i class="fas fa-check"></i> Launch day promotion plan</li>
+                        <li><i class="fas fa-check"></i> Post-launch momentum strategy</li>
+                        <li><i class="fas fa-check"></i> Performance tracking & reporting</li>
+                    </ul>
+                </div>
+                <!-- Service 2 -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <span class="service-number">02</span>
+                    <div class="service-icon"><i class="fab fa-amazon"></i></div>
+                    <h3>Amazon Book Marketing</h3>
+                    <p>Be found. Be chosen. Be bought. I optimize your entire Amazon presence so readers searching for books like yours find YOUR book first.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Full listing audit & optimization</li>
+                        <li><i class="fas fa-check"></i> Keyword & category optimization</li>
+                        <li><i class="fas fa-check"></i> Amazon Ads management</li>
+                        <li><i class="fas fa-check"></i> Review generation strategy</li>
+                        <li><i class="fas fa-check"></i> Monthly performance reports</li>
+                    </ul>
+                </div>
+                <!-- Service 3 -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                    <span class="service-number">03</span>
+                    <div class="service-icon"><i class="fas fa-hashtag"></i></div>
+                    <h3>Social Media Marketing</h3>
+                    <p>Build your audience. Sell your book. I create powerful social media campaigns that attract, engage, and convert followers into readers and buyers.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Strategy & content calendar</li>
+                        <li><i class="fas fa-check"></i> Professional social media posts</li>
+                        <li><i class="fas fa-check"></i> BookTok & Bookstagram campaigns</li>
+                        <li><i class="fas fa-check"></i> Community building & engagement</li>
+                        <li><i class="fas fa-check"></i> Monthly performance analytics</li>
+                    </ul>
+                </div>
+                <!-- Service 4 -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+                    <span class="service-number">04</span>
+                    <div class="service-icon"><i class="fas fa-crown"></i></div>
+                    <h3>Author Branding</h3>
+                    <p>You are more than a book — you are a brand. I build powerful, authentic author brands that make you recognizable, memorable, and marketable.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Brand identity development</li>
+                        <li><i class="fas fa-check"></i> Voice & messaging strategy</li>
+                        <li><i class="fas fa-check"></i> Professional author bio creation</li>
+                        <li><i class="fas fa-check"></i> Visual brand guidelines</li>
+                        <li><i class="fas fa-check"></i> Brand growth roadmap</li>
+                    </ul>
+                </div>
+                <!-- Service 5 -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="500">
+                    <span class="service-number">05</span>
+                    <div class="service-icon"><i class="fas fa-envelope-open-text"></i></div>
+                    <h3>Email Marketing</h3>
+                    <p>Reach your readers directly — every single time. I help you build, grow, and monetize your email list with campaigns that convert readers into loyal fans.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Email list setup & configuration</li>
+                        <li><i class="fas fa-check"></i> Welcome email sequence</li>
+                        <li><i class="fas fa-check"></i> Book launch email campaigns</li>
+                        <li><i class="fas fa-check"></i> Newsletter strategy & writing</li>
+                        <li><i class="fas fa-check"></i> List segmentation & management</li>
+                    </ul>
+                </div>
+                <!-- Service 6 -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="600">
+                    <span class="service-number">06</span>
+                    <div class="service-icon"><i class="fas fa-bullhorn"></i></div>
+                    <h3>Paid Ads Management</h3>
+                    <p>Put your book in front of thousands of ready-to-buy readers. I create, manage, and optimize targeted ad campaigns that deliver measurable, profitable results.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Ad strategy & campaign planning</li>
+                        <li><i class="fas fa-check"></i> Facebook & Instagram Ads</li>
+                        <li><i class="fas fa-check"></i> Amazon Sponsored Ads</li>
+                        <li><i class="fas fa-check"></i> A/B testing & optimization</li>
+                        <li><i class="fas fa-check"></i> Budget management & scaling</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         ABOUT / MISSION SECTION
+    ============================================ -->
+    <section class="about-section section-padding" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text" data-aos="fade-right" data-aos-duration="1000">
+                    <div class="section-label" style="text-align:left;"><span>About Stella Forbes</span></div>
+                    <h2>I Became a Book Marketer Because <span>Every Story Deserves an Audience</span></h2>
+                    <p>Books changed my life. Long before I became a professional book marketing expert, I was a passionate lover of stories — someone who understood that books have the power to transform lives, start conversations, heal wounds, and inspire movements.</p>
+                    <p>But I also noticed something painful. I watched talented, dedicated authors pour their hearts into incredible books — only to watch those books disappear into obscurity because no one knew how to get them in front of the right people.</p>
+                    <p>That broke my heart. And that's exactly why I built my career around one powerful mission: <strong>To make sure that no great book goes unnoticed.</strong></p>
+
+                    <div class="mission-box">
+                        <p>"To equip every author with the tools, strategies, and expert support they need to make their book visible, valuable, and victorious in the marketplace."</p>
+                    </div>
+
+                    <div class="about-values">
+                        <div class="about-value"><i class="fas fa-gem"></i> Every author deserves a real chance at success</div>
+                        <div class="about-value"><i class="fas fa-gem"></i> Good books should never be hidden from the world</div>
+                        <div class="about-value"><i class="fas fa-gem"></i> Marketing should feel empowering — not overwhelming</div>
+                        <div class="about-value"><i class="fas fa-gem"></i> Real results matter more than empty promises</div>
+                    </div>
+                </div>
+                <div class="about-image-side" data-aos="fade-left" data-aos-duration="1000">
+                    <div class="about-image-collage">
+                        <div class="about-img-1">
+                            <img src="images (9).png" alt="Stella Forbes working">
+                        </div>
+                        <div class="about-img-2">
+                            <img src="images (9).png" alt="Stella Forbes portrait">
+                        </div>
+                        <div class="about-decoration"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         TESTIMONIALS SECTION
+    ============================================ -->
+    <section class="testimonials-section section-padding" id="testimonials">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <div class="section-label"><span>Testimonials</span></div>
+                <h2 class="section-title">Real Authors. Real <span class="gradient-text">Results.</span></h2>
+                <p class="section-subtitle">Don't just take my word for it. Hear what authors who have worked with me have to say about their experience and results.</p>
+            </div>
+            <div class="testimonials-grid">
+
+                <!-- Testimonial 1 - Racheal Duncan -->
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial-header">
+                        <a href="https://www.amazon.com/stores/author/B00N447WH8" target="_blank" rel="noopener noreferrer" class="testimonial-author-pic" title="View Racheal Duncan on Amazon">
+                            <img src="Racheal pic.webp" alt="Racheal Duncan">
+                        </a>
+                        <div class="testimonial-author-info">
+                            <h4>Racheal Duncan</h4>
+                            <a href="mailto:authorrachealducan@gmail.com" class="author-email">
+                                <i class="fas fa-envelope"></i> authorrachealducan@gmail.com
+                            </a>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-quote">"Stella completely transformed my book's performance. Within 3 months of working with her, my sales doubled and I started getting recognized as an author in my space. She is absolutely incredible and worth every single penny!"</p>
+                    <div class="testimonial-book-section">
+                        <a href="https://www.amazon.com/stores/author/B00N447WH8" target="_blank" rel="noopener noreferrer" class="testimonial-book-cover" title="View on Amazon">
+                            <img src="Racheal book.jpg" alt="Racheal Duncan's Book">
+                        </a>
+                        <div class="testimonial-book-info">
+                            <p>Featured Book</p>
+                            <a href="https://www.amazon.com/stores/author/B00N447WH8" target="_blank" rel="noopener noreferrer" class="amazon-link">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon">
+                                View on Amazon
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 - Kate Cullen -->
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testimonial-header">
+                        <a href="https://www.amazon.com/stores/author/B00X6NNBTA" target="_blank" rel="noopener noreferrer" class="testimonial-author-pic" title="View Kate Cullen on Amazon">
+                            <img src="Kate Cullen pic.webp" alt="Kate Cullen">
+                        </a>
+                        <div class="testimonial-author-info">
+                            <h4>Kate Cullen</h4>
+                            <a href="mailto:katecullen473@gmail.com" class="author-email">
+                                <i class="fas fa-envelope"></i> katecullen473@gmail.com
+                            </a>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-quote">"I had no idea how to market my book. Stella made it so simple, so strategic, and so effective. My Amazon ranking jumped from page 10 to page 1 in just 6 weeks. She understood my book better than I expected — outstanding results!"</p>
+                    <div class="testimonial-book-section">
+                        <a href="https://www.amazon.com/stores/author/B00X6NNBTA" target="_blank" rel="noopener noreferrer" class="testimonial-book-cover" title="View on Amazon">
+                            <img src="Kate Cullen book.jpg" alt="Kate Cullen's Book">
+                        </a>
+                        <div class="testimonial-book-info">
+                            <p>Featured Book</p>
+                            <a href="https://www.amazon.com/stores/author/B00X6NNBTA" target="_blank" rel="noopener noreferrer" class="amazon-link">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon">
+                                View on Amazon
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 - Lisette Starr -->
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="testimonial-header">
+                        <a href="https://www.amazon.com/stores/author/B07X7KHGBN" target="_blank" rel="noopener noreferrer" class="testimonial-author-pic" title="View Lisette Starr on Amazon">
+                            <img src="Lisette pic.jpg" alt="Lisette Starr">
+                        </a>
+                        <div class="testimonial-author-info">
+                            <h4>Lisette Starr</h4>
+                            <a href="mailto:lisettestarr@gmail.com" class="author-email">
+                                <i class="fas fa-envelope"></i> lisettestarr@gmail.com
+                            </a>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-quote">"Stella doesn't just market your book — she becomes invested in your success. She studied my book deeply, understood my audience, and built a strategy that felt personal and authentic. My email list grew by 2,000 subscribers in 2 months!"</p>
+                    <div class="testimonial-book-section">
+                        <a href="https://www.amazon.com/stores/author/B07X7KHGBN" target="_blank" rel="noopener noreferrer" class="testimonial-book-cover" title="View on Amazon">
+                            <img src="Lisette book.jpg" alt="Lisette Starr's Book">
+                        </a>
+                        <div class="testimonial-book-info">
+                            <p>Featured Book</p>
+                            <a href="https://www.amazon.com/stores/author/B07X7KHGBN" target="_blank" rel="noopener noreferrer" class="amazon-link">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon">
+                                View on Amazon
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         PERSONAL STATEMENT SECTION
+    ============================================ -->
+    <section class="statement-section section-padding">
+        <div class="container">
+            <div class="statement-container" data-aos="fade-up" data-aos-duration="1000">
+                <div class="statement-image">
+                    <img src="images (9).png" alt="Stella Forbes Personal">
+                </div>
+                <div class="statement-text">
+                    <h2>A Message From <span>Stella</span></h2>
+                    <blockquote>
+                        "If you are an author reading this right now — I want you to know something. Your book matters. Your story matters. And you deserve to have a marketing expert in your corner who truly cares about your success — not just your invoice. I built this service for you. I show up every day for you. And I promise to give your book everything I have. Let's do this together."
+                    </blockquote>
+                    <div class="statement-signature">
+                        <span class="sig-line"></span>
+                        <div>
+                            <span class="sig-name">Stella Forbes</span><br>
+                            <span class="sig-title">Book Marketing Expert & Specialist</span>
+                        </div>
+                    </div>
+                    <a href="mailto:forbesstella20@gmail.com" class="statement-email">
+                        <i class="fas fa-envelope"></i> forbesstella20@gmail.com
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         CONTACT SECTION
+    ============================================ -->
+    <section class="contact-section section-padding" id="contact">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <div class="section-label"><span>Get In Touch</span></div>
+                <h2 class="section-title">Let's Talk About <span class="gradient-text">Your Book</span></h2>
+                <p class="section-subtitle">Ready to take the next step? I'd love to hear about your book, your goals, and how I can help you succeed.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info" data-aos="fade-right" data-aos-duration="1000">
+                    <h2>Ready to Make Your Book <span>Visible?</span></h2>
+                    <p>Whether you have a specific project in mind, a question about my services, or you simply want to explore your options — I am here and ready to listen. There are no silly questions and no pressure. Just a genuine conversation between two people who both want to see your book succeed.</p>
+
+                    <div class="contact-details">
+                        <div class="contact-detail">
+                            <div class="contact-detail-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <h4>Email Me</h4>
+                                <a href="mailto:forbesstella20@gmail.com">forbesstella20@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-detail">
+                            <div class="contact-detail-icon"><i class="fas fa-clock"></i></div>
+                            <div>
+                                <h4>Response Time</h4>
+                                <p>Within 24 hours on business days</p>
+                            </div>
+                        </div>
+                        <div class="contact-detail">
+                            <div class="contact-detail-icon"><i class="fas fa-globe-americas"></i></div>
+                            <div>
+                                <h4>Working With Authors</h4>
+                                <p>Globally — no matter where you are</p>
+                            </div>
+                        </div>
+                        <div class="contact-detail">
+                            <div class="contact-detail-icon"><i class="fas fa-shield-alt"></i></div>
+                            <div>
+                                <h4>Trusted & Verified</h4>
+                                <p>100+ authors served worldwide</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper" data-aos="fade-left" data-aos-duration="1000">
+                    <h3>Send Me a Message</h3>
+                    <form action="https://formspree.io/f/maqarbjj" method="POST">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input type="text" id="name" name="name" placeholder="Your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" placeholder="Your email address" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="book-title">Book Title</label>
+                                <input type="text" id="book-title" name="book_title" placeholder="Your book title (if available)">
+                            </div>
+                            <div class="form-group">
+                                <label for="genre">Book Genre</label>
+                                <input type="text" id="genre" name="genre" placeholder="e.g., Romance, Thriller, Non-Fiction">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="stage">Book Stage</label>
+                                <select id="stage" name="book_stage">
+                                    <option value="">Select stage...</option>
+                                    <option value="Writing">Writing</option>
+                                    <option value="Editing">Editing</option>
+                                    <option value="Ready to Publish">Ready to Publish</option>
+                                    <option value="Already Published">Already Published</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="service">Service Interested In</label>
+                                <select id="service" name="service_interested">
+                                    <option value="">Select service...</option>
+                                    <option value="Book Launch Strategy">Book Launch Strategy</option>
+                                    <option value="Amazon Marketing">Amazon Book Marketing</option>
+                                    <option value="Social Media Marketing">Social Media Marketing</option>
+                                    <option value="Author Branding">Author Branding</option>
+                                    <option value="Email Marketing">Email Marketing</option>
+                                    <option value="Paid Ads Management">Paid Ads Management</option>
+                                    <option value="Not Sure Yet">Not Sure Yet</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Tell Me About Your Book & Goals *</label>
+                            <textarea id="message" name="message" placeholder="Share your book details, goals, and any questions you have..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="how-found">How Did You Find Me?</label>
+                            <input type="text" id="how-found" name="how_found" placeholder="e.g., Google, Social Media, Referral">
+                        </div>
+                        <button type="submit" class="form-submit-btn">
+                            <i class="fas fa-paper-plane"></i> Send My Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         CTA SECTION
+    ============================================ -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content" data-aos="fade-up">
+                <h2>Your Book's <span>Success Story</span> Starts Today</h2>
+                <p>You've done the hard work of writing your book. Now let me do the hard work of making sure the world reads it. Together, we will build a marketing strategy that drives real sales and establishes your name as a recognized author brand.</p>
+                <div class="cta-buttons">
+                    <a href="#contact" class="btn-primary">
+                        <i class="fas fa-rocket"></i> Work With Me Now
+                    </a>
+                    <a href="#services" class="btn-secondary">
+                        <i class="fas fa-briefcase"></i> View My Services
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+    ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">Stella <span>Forbes</span></div>
+                    <p>Helping authors increase visibility, drive consistent sales, and build powerful author brands that last. Your book deserves to be seen — and I'm here to make it happen.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about-intro">About Me</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#services">Book Launch Strategy</a></li>
+                        <li><a href="#services">Amazon Marketing</a></li>
+                        <li><a href="#services">Social Media Marketing</a></li>
+                        <li><a href="#services">Author Branding</a></li>
+                        <li><a href="#services">Email Marketing</a></li>
+                        <li><a href="#services">Paid Ads</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Info</h4>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:forbesstella20@gmail.com">forbesstella20@gmail.com</a>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Responds within 24 hours</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-globe-americas"></i>
+                        <span>Working with authors globally</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-language"></i>
+                        <span>English</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 <span>Stella Forbes</span>. All Rights Reserved. | Book Marketing Expert & Specialist</p>
+                <div class="footer-badges">
+                    <div class="footer-badge"><i class="fas fa-shield-alt"></i> Trusted Expert</div>
+                    <div class="footer-badge"><i class="fas fa-check-circle"></i> Verified Professional</div>
+                    <div class="footer-badge"><i class="fas fa-lock"></i> Secure & Private</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         BACK TO TOP BUTTON
+    ============================================ -->
+    <div class="back-to-top" id="backToTop" onclick="scrollToTop()">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <!-- ============================================
+         SCRIPTS
+    ============================================ -->
+    <!-- AOS Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+    <script>
+        // ============================================
+        // PRELOADER
+        // ============================================
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('preloader').classList.add('hidden');
+            }, 2500);
+        });
+
+        // ============================================
+        // INITIALIZE AOS (Animate on Scroll)
+        // ============================================
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 80,
+            delay: 0,
+        });
+
+        // ============================================
+        // NAVBAR SCROLL EFFECT
+        // ============================================
+        const navbar = document.getElementById('navbar');
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 80) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Back to top button
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // ============================================
+        // MOBILE MENU
+        // ============================================
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const mobileToggle = document.getElementById('mobileToggle');
+            navLinks.classList.toggle('active');
+            mobileToggle.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const mobileToggle = document.getElementById('mobileToggle');
+            navLinks.classList.remove('active');
+            mobileToggle.classList.remove('active');
+        }
+
+        // ============================================
+        // SCROLL TO TOP
+        // ============================================
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // ============================================
+        // COUNTER ANIMATION
+        // ============================================
+        function animateCounters() {
+            const counters = document.querySelectorAll('.hero-stat-number');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += step;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current) + '+';
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target + '+';
+                    }
+                };
+
+                // Start animation when element is in view
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            updateCounter();
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                observer.observe(counter);
+            });
+        }
+
+        animateCounters();
+
+        // ============================================
+        // SMOOTH SCROLL FOR ANCHOR LINKS
+        // ============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // ============================================
+        // PARALLAX EFFECT ON HERO PARTICLES
+        // ============================================
+        window.addEventListener('mousemove', function(e) {
+            const particles = document.querySelectorAll('.particle');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            particles.forEach((particle, i) => {
+                const speed = (i + 1) * 0.5;
+                const moveX = (x - 0.5) * speed * 20;
+                const moveY = (y - 0.5) * speed * 20;
+                particle.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+        });
+
+        // ============================================
+        // ACTIVE NAV LINK HIGHLIGHT ON SCROLL
+        // ============================================
+        const sections = document.querySelectorAll('section[id]');
+
+        window.addEventListener('scroll', function() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 200;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.style.color = '';
+                if (link.getAttribute('href') === '#' + current) {
+                    link.style.color = '#C9A84C';
+                }
+            });
+        });
+
+        // ============================================
+        // TILT EFFECT ON SERVICE CARDS
+        // ============================================
+        const cards = document.querySelectorAll('.service-card, .why-card, .testimonial-card');
+
+        cards.forEach(card => {
+            card.addEventListener('mousemove', function(e) {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+            });
+
+            card.addEventListener('mouseleave', function() {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+            });
+        });
+
+        // ============================================
+        // TYPING EFFECT FOR HERO (Optional Enhancement)
+        // ============================================
+        const heroTitle = document.querySelector('.hero-title');
+        if (heroTitle) {
+            heroTitle.style.opacity = '1';
+        }
+
+        // ============================================
+        // FORM SUBMISSION ANIMATION
+        // ============================================
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                const btn = form.querySelector('.form-submit-btn');
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                btn.style.opacity = '0.7';
+                btn.style.pointerEvents = 'none';
+            });
+        }
+    </script>
+
+</body>
+</html>
