@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Growth Hub Agency</title>
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --primary:#0b0b1e;--pmid:#111130;--plight:#1b1b42;
+            --accent:#c9a54a;--accentL:#ddbf5f;--accentD:#a88a3a;
+            --accentG:rgba(201,165,74,.14);
+            --white:#fff;--offW:#faf9f6;--cream:#f4f2ed;
+            --g100:#e9e7e2;--g600:#666;
+            --text:#1a1a1a;--text2:#555;
+            --rsm:8px;--rmd:14px;--rlg:20px;--rxl:28px;
+            --shsm:0 2px 10px rgba(0,0,0,.06);--shmd:0 8px 32px rgba(0,0,0,.08);--shlg:0 20px 60px rgba(0,0,0,.12);
+            --tr:all .4s cubic-bezier(.25,.46,.45,.94);--trf:all .25s ease
+        }
+        html{overflow-x:hidden}
+        body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+        /* ===== SPA PAGE DISPLAY LOGIC ===== */
+        .page-view {
+            display: none;
+            animation: fadeIn 0.6s ease;
+            min-height: 100vh;
+            padding-top: 100px; /* Offset for navbar on all pages except hero */
+        }
+        
+        #hero.page-view {
+            padding-top: 0;
+        }
+
+        .page-view.active-page {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ===== PRELOADER ===== */
+        #preloader{position:fixed;inset:0;background:var(--primary);z-index:100000;display:flex;align-items:center;justify-content:center}
+        .pl-inner{text-align:center}
+        .pl-ring{width:140px;height:140px;border-radius:50%;border:2px solid rgba(201,165,74,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 35px;position:relative;animation:plP 2s ease-in-out infinite}
+        .pl-ring::before{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid transparent;border-top-color:var(--accent);animation:plS 1.2s linear infinite}
+        .pl-ring::after{content:'';position:absolute;inset:-10px;border-radius:50%;border:1px solid transparent;border-bottom-color:rgba(201,165,74,.3);animation:plS 2s linear infinite reverse}
+        @keyframes plS{to{transform:rotate(360deg)}}
+        @keyframes plP{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+        .pl-ring img{width:90px;height:90px;border-radius:50%;object-fit:cover;background:#fff}
+        .pl-brand{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--white);letter-spacing:2px;margin-bottom:6px}
+        .pl-brand span{color:var(--accent)}
+        .pl-sub{font-size:11px;letter-spacing:6px;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:500;margin-bottom:40px}
+        .pl-bw{width:220px;height:2px;background:rgba(255,255,255,.08);border-radius:2px;margin:0 auto;overflow:hidden}
+        .pl-bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accentL));border-radius:2px}
+        .pl-pct{color:var(--accent);font-size:12px;font-weight:600;margin-top:14px;letter-spacing:2px}
+        #preloader.done{animation:plOut .8s ease forwards}
+        @keyframes plOut{to{opacity:0;visibility:hidden;pointer-events:none}}
+
+        /* ===== PAGE TRANSITION - HORIZONTAL SWIPE ===== */
+        .page-tr{position:fixed;inset:0;z-index:99999;pointer-events:none;display:flex}
+        .page-tr .panel{width:0;height:100%;background:var(--primary);transition:none}
+        .page-tr .panel-logo{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);z-index:100001;opacity:0;pointer-events:none;text-align:center;transition:opacity .3s ease,transform .3s ease}
+        .page-tr .panel-logo img{width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);background:#fff}
+        .page-tr .panel-logo span{display:block;font-family:'Playfair Display',serif;color:var(--accent);font-size:15px;font-weight:700;margin-top:8px;white-space:nowrap}
+
+        /* ===== REVEAL ANIMATIONS ===== */
+        .rv{opacity:0;transform:translateY(40px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+        .rv.vis{opacity:1;transform:translateY(0)}
+        .rvl{opacity:0;transform:translateX(-40px);transition:opacity .6s ease,transform .6s ease}
+        .rvl.vis{opacity:1;transform:translateX(0)}
+        .rvr{opacity:0;transform:translateX(40px);transition:opacity .6s ease,transform .6s ease}
+        .rvr.vis{opacity:1;transform:translateX(0)}
+        .stg>*{opacity:0;transform:translateY(25px);transition:opacity .4s ease,transform .4s ease}
+        .stg.vis>*:nth-child(1){transition-delay:.04s;opacity:1;transform:translateY(0)}
+        .stg.vis>*:nth-child(2){transition-delay:.1s;opacity:1;transform:translateY(0)}
+        .stg.vis>*:nth-child(3){transition-delay:.16s;opacity:1;transform:translateY(0)}
+        .stg.vis>*:nth-child(4){transition-delay:.22s;opacity:1;transform:translateY(0)}
+        .stg.vis>*:nth-child(5){transition-delay:.28s;opacity:1;transform:translateY(0)}
+        .stg.vis>*:nth-child(6){transition-delay:.34s;opacity:1;transform:translateY(0)}
+        .stg.vis>*:nth-child(7){transition-delay:.4s;opacity:1;transform:translateY(0)}
+        .stg.vis>*:nth-child(8){transition-delay:.46s;opacity:1;transform:translateY(0)}
+
+        /* ===== MOBILE OVERLAY ===== */
+        .mob-ov{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:8998;opacity:0;visibility:hidden;transition:var(--tr)}
+        .mob-ov.show{opacity:1;visibility:visible}
+
+        /* ===== NAVBAR ===== */
+        .nav{position:fixed;top:0;left:0;width:100%;z-index:9000;padding:20px 0;transition:var(--tr)}
+        .nav.fix{background:rgba(11,11,30,.96);backdrop-filter:blur(24px);padding:13px 0;box-shadow:0 4px 30px rgba(0,0,0,.25)}
+        .nw{max-width:1320px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between}
+        .nb{display:flex;align-items:center;gap:14px;text-decoration:none}
+        .nb img{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);transition:var(--tr);background:#fff}
+        .nav.fix .nb img{width:38px;height:38px}
+        .nb h3{font-family:'Playfair Display',serif;color:var(--white);font-size:18px;font-weight:700;line-height:1.2}
+        .nb em{font-style:normal;font-size:9px;color:var(--accent);letter-spacing:4px;text-transform:uppercase;font-weight:600;display:block}
+        .nm{display:flex;align-items:center;gap:6px;list-style:none}
+        .nm a{color:rgba(255,255,255,.8);text-decoration:none;font-size:13.5px;font-weight:500;padding:10px 16px;border-radius:var(--rsm);transition:var(--trf);position:relative;cursor:pointer}
+        .nm a::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:0;height:2px;background:var(--accent);transition:var(--trf)}
+        .nm a:hover::after,.nm a.on::after{width:20px}
+        .nm a:hover,.nm a.on{color:var(--accent)}
+        .ncta{background:var(--accent)!important;color:var(--primary)!important;font-weight:700!important;padding:12px 28px!important;border-radius:var(--rsm)!important}
+        .ncta::after{display:none!important}
+        .ncta:hover{background:var(--accentL)!important;transform:translateY(-2px);box-shadow:0 8px 25px rgba(201,165,74,.35)}
+        .hb{display:none;flex-direction:column;gap:6px;cursor:pointer;padding:5px;z-index:9002}
+        .hb span{width:26px;height:2px;background:var(--white);transition:var(--tr)}
+        .hb.open span:nth-child(1){transform:rotate(45deg) translate(6px,6px)}
+        .hb.open span:nth-child(2){opacity:0}
+        .hb.open span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px)}
+
+        /* ===== HERO ===== */
+        .hero{display:flex;align-items:center;justify-content:center;background:var(--primary);position:relative;overflow:hidden}
+        .hero-bg{position:absolute;inset:0;z-index:1}
+        .hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.18}
+        .hero-grad{position:absolute;inset:0;background:linear-gradient(160deg,rgba(11,11,30,.95),rgba(17,17,48,.85) 40%,rgba(11,11,30,.92));z-index:2}
+        .hero-pts{position:absolute;inset:0;z-index:3;overflow:hidden}
+        .hpt{position:absolute;border-radius:50%;background:var(--accent);opacity:0;animation:hpf linear infinite}
+        @keyframes hpf{0%{transform:translateY(100vh) scale(0);opacity:0}15%{opacity:.25;transform:scale(1)}85%{opacity:.25}100%{transform:translateY(-20vh) scale(0);opacity:0}}
+        .hero-c{position:relative;z-index:4;text-align:center;max-width:880px;padding:0 30px}
+        .hero-ey{display:inline-flex;align-items:center;gap:10px;background:rgba(201,165,74,.1);border:1px solid rgba(201,165,74,.2);padding:10px 24px;border-radius:50px;margin-bottom:32px;opacity:0;animation:hi .8s ease .4s forwards}
+        .hero-ey span{color:var(--accent);font-size:11.5px;font-weight:600;letter-spacing:3.5px;text-transform:uppercase}
+        .hero-ey i{color:var(--accent);font-size:13px}
+        .hero h1{font-family:'Playfair Display',serif;font-size:68px;font-weight:800;color:var(--white);line-height:1.08;margin-bottom:26px;opacity:0;animation:hi .8s ease .6s forwards}
+        .hero h1 .gl{color:var(--accent)}
+        .hero-d{font-size:18px;color:rgba(255,255,255,.6);line-height:1.8;max-width:640px;margin:0 auto 42px;font-weight:300;opacity:0;animation:hi .8s ease .8s forwards}
+        .hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:hi .8s ease 1s forwards}
+        .btn{display:inline-flex;align-items:center;gap:10px;padding:16px 34px;font-size:14px;font-weight:600;font-family:'Inter',sans-serif;text-decoration:none;border-radius:var(--rmd);transition:var(--tr);cursor:pointer;border:none}
+        .btn-g{background:var(--accent);color:var(--primary)}
+        .btn-g:hover{background:var(--accentL);transform:translateY(-3px);box-shadow:0 14px 40px rgba(201,165,74,.35)}
+        .btn-o{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.2)}
+        .btn-o:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px)}
+        .hero-mt{display:flex;justify-content:center;gap:55px;margin-top:65px;opacity:0;animation:hi .8s ease 1.2s forwards}
+        .hmi{text-align:center}
+        .hmv{font-family:'Playfair Display',serif;font-size:40px;font-weight:700;color:var(--accent);line-height:1}
+        .hml{color:rgba(255,255,255,.4);font-size:11px;margin-top:8px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500}
+        @keyframes hi{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:translateY(0)}}
+
+        /* ===== SECTION BASE ===== */
+        .container{max-width:1320px;margin:0 auto;padding:0 40px}
+        .sh{text-align:center;margin-bottom:65px}
+        .stag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;position:relative}
+        .stag::before,.stag::after{content:'';position:absolute;top:50%;width:30px;height:1px;background:var(--accent);opacity:.4}
+        .stag::before{right:calc(100% + 14px)}
+        .stag::after{left:calc(100% + 14px)}
+        .sh h2{font-family:'Playfair Display',serif;font-size:46px;font-weight:700;color:var(--primary);line-height:1.15;margin-bottom:18px}
+        .sh p{font-size:16.5px;color:var(--text2);max-width:580px;margin:0 auto;line-height:1.7;font-weight:300}
+        .gln{width:50px;height:3px;background:var(--accent);margin:22px auto 0;border-radius:3px}
+
+        /* ===== ABOUT ===== */
+        .about{padding-bottom:130px;background:var(--white)}
+        .about-g{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+        .about-vis{position:relative}
+        .about-img{border-radius:var(--rxl);overflow:hidden;box-shadow:var(--shlg);position:relative;background:#fff;padding:20px}
+        /* UPDATED: Displays logo.jpg as requested */
+        .about-img img{width:100%;height:auto;max-height:480px;object-fit:contain;display:block}
+        .about-acc{position:absolute;bottom:-25px;right:-25px;width:180px;height:180px;border:3px solid var(--accent);border-radius:var(--rxl);z-index:-1;opacity:.5}
+        .about-bdg{position:absolute;top:-20px;left:-20px;background:var(--accent);color:var(--primary);padding:22px 26px;border-radius:var(--rlg);text-align:center;box-shadow:var(--shmd);z-index:2}
+        .about-bdg .b{font-family:'Playfair Display',serif;font-size:34px;font-weight:800;line-height:1;display:block}
+        .about-bdg .s{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:3px;display:block}
+        .about-txt h2{font-family:'Playfair Display',serif;font-size:40px;font-weight:700;color:var(--primary);line-height:1.2;margin-bottom:20px}
+        .about-p{font-size:15.5px;color:var(--text2);line-height:1.85;margin-bottom:16px}
+        .about-ck{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}
+        .cki{display:flex;align-items:flex-start;gap:12px}
+        .ckic{width:40px;height:40px;min-width:40px;background:var(--accentG);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:14px}
+        .cki h4{font-size:14px;font-weight:600;color:var(--primary);margin-bottom:3px}
+        .cki p{font-size:12.5px;color:var(--g600);line-height:1.5}
+
+        /* ===== SERVICES ===== */
+        .services{padding-bottom:130px;background:var(--white)}
+        .svg{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+        .sv{background:var(--white);border:1px solid var(--g100);border-radius:var(--rlg);padding:40px 28px;text-align:center;transition:var(--tr);position:relative;overflow:hidden}
+        .sv::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--accent),var(--accentL));transform:scaleX(0);transform-origin:left;transition:var(--tr)}
+        .sv:hover{transform:translateY(-10px);box-shadow:var(--shlg);border-color:transparent}
+        .sv:hover::before{transform:scaleX(1)}
+        .svic{width:72px;height:72px;margin:0 auto 22px;background:var(--accentG);border-radius:18px;display:flex;align-items:center;justify-content:center;transition:var(--tr)}
+        .svic i{font-size:26px;color:var(--accent);transition:var(--tr)}
+        .sv:hover .svic{background:var(--accent);box-shadow:0 8px 25px rgba(201,165,74,.3)}
+        .sv:hover .svic i{color:var(--primary)}
+        .sv h3{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--primary);margin-bottom:12px}
+        .sv p{font-size:13.5px;color:var(--text2);line-height:1.7}
+
+        /* ===== STATS ===== */
+        .stats{padding:75px 0 130px;background:var(--white)}
+        .stsg{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;background:var(--accent);padding:50px;border-radius:var(--rxl);box-shadow:var(--shmd)}
+        .sti{text-align:center}
+        .stn{font-family:'Playfair Display',serif;font-size:50px;font-weight:800;color:var(--primary);line-height:1}
+        .sts{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--primary)}
+        .stl{font-size:12px;color:rgba(11,11,30,.7);font-weight:600;letter-spacing:2.5px;text-transform:uppercase;margin-top:8px}
+
+        /* ===== PROCESS ===== */
+        .process{padding-bottom:130px;background:var(--white)}
+        .prg{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;position:relative}
+        .prl{position:absolute;top:48px;left:14%;right:14%;height:2px;background:linear-gradient(90deg,var(--accent),rgba(201,165,74,.2));z-index:0}
+        .prs{text-align:center;position:relative;z-index:1}
+        .prn{width:64px;height:64px;margin:0 auto 24px;background:var(--white);color:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:22px;font-weight:800;position:relative;box-shadow:0 8px 25px rgba(0,0,0,.08);border:2px solid var(--accent)}
+        .prs h3{font-family:'Playfair Display',serif;color:var(--primary);font-size:19px;font-weight:600;margin-bottom:10px}
+        .prs p{color:var(--text2);font-size:13.5px;line-height:1.7;max-width:220px;margin:0 auto}
+
+        /* ===== TEAM ===== */
+        .team{padding-bottom:130px;background:var(--white)}
+        .tmg{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+        .tm{background:var(--offW);border-radius:var(--rlg);overflow:hidden;transition:var(--tr);box-shadow:var(--shsm);border:1px solid var(--g100)}
+        .tm:hover{transform:translateY(-10px);box-shadow:var(--shlg)}
+        .tmph{width:100%;height:280px;overflow:hidden}
+        .tmph img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
+        .tm:hover .tmph img{transform:scale(1.06)}
+        .tmi{padding:22px 22px 26px;text-align:center}
+        .tmi h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--primary);margin-bottom:6px}
+        .tmi .rl{font-size:12px;color:var(--accent);font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+        .tmi .eml{font-size:11.5px;color:var(--g600);text-decoration:none;display:inline-flex;align-items:center;gap:5px;transition:var(--trf);word-break:break-all}
+        .tmi .eml:hover{color:var(--accent)}
+
+        /* ===== AUTHORS ===== */
+        .authors{padding-bottom:130px;background:var(--white)}
+        .aug{display:grid;grid-template-columns:repeat(2,1fr);gap:40px}
+        .au{display:flex;align-items:center;gap:30px;background:var(--offW);border:1px solid var(--g100);border-radius:var(--rxl);padding:35px;transition:var(--tr)}
+        .au:hover{transform:translateY(-6px);box-shadow:var(--shlg);border-color:transparent}
+        .auav{width:100px;height:100px;min-width:100px;border-radius:50%;object-fit:cover;border:3px solid var(--accent);box-shadow:0 4px 20px rgba(201,165,74,.2)}
+        .aui h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--primary);margin-bottom:12px}
+        .amz{display:inline-flex;align-items:center;gap:8px;background:#FF9900;color:#fff;padding:11px 24px;border-radius:var(--rsm);font-size:13px;font-weight:700;text-decoration:none;transition:var(--tr)}
+        .amz:hover{background:#e68a00;transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,153,0,.3)}
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials{padding-bottom:130px;background:var(--white)}
+        .tsg{display:grid;grid-template-columns:repeat(2,1fr);gap:36px}
+        .tsc{background:var(--primary);border-radius:var(--rxl);padding:45px 40px;transition:var(--tr);position:relative}
+        .tsc:hover{transform:translateY(-5px);box-shadow:var(--shlg)}
+        .tsc-quote{position:absolute;top:30px;right:35px;font-size:60px;color:rgba(201,165,74,.15);font-family:'Playfair Display',serif;line-height:1}
+        .tsc-stars{color:var(--accent);font-size:14px;letter-spacing:3px;margin-bottom:18px}
+        .tsc-text{color:rgba(255,255,255,.8);font-size:15px;line-height:1.85;margin-bottom:24px;font-style:italic}
+        .tsc-author{display:flex;align-items:center;gap:14px}
+        .tsc-avatar{width:50px;height:50px;border-radius:50%;object-fit:contain;background:#fff;border:2px solid var(--accent);padding:2px}
+        .tsc-name{font-family:'Playfair Display',serif;color:var(--white);font-size:16px;font-weight:600}
+        .tsc-role{color:rgba(255,255,255,.5);font-size:12px;margin-top:2px}
+
+        /* ===== CONTACT ===== */
+        .contact{padding-bottom:130px;background:var(--white)}
+        .ctg{display:grid;grid-template-columns:1fr 1.4fr;gap:60px;align-items:start}
+        .ctl h2{font-family:'Playfair Display',serif;font-size:38px;font-weight:700;color:var(--primary);line-height:1.2;margin-bottom:16px}
+        .ctl>p{font-size:15.5px;color:var(--text2);line-height:1.7;margin-bottom:40px}
+        .cil{display:flex;flex-direction:column;gap:22px}
+        .ci{display:flex;align-items:flex-start;gap:16px}
+        .ciic{width:48px;height:48px;min-width:48px;background:var(--accentG);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:17px}
+        .ci h4{font-size:14px;font-weight:600;color:var(--primary);margin-bottom:3px}
+        .ci p,.ci a{font-size:13.5px;color:var(--text2);text-decoration:none;transition:var(--trf)}
+        .ci a:hover{color:var(--accent)}
+        .ctf{background:var(--offW);border:1px solid var(--g100);border-radius:var(--rxl);padding:48px;box-shadow:var(--shmd)}
+        .ctf h3{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--primary);margin-bottom:28px}
+        .fg{margin-bottom:20px}
+        .fg label{display:block;font-size:12.5px;font-weight:600;color:var(--primary);margin-bottom:7px}
+        .fg input,.fg textarea,.fg select{width:100%;padding:13px 16px;font-family:'Inter',sans-serif;font-size:14px;color:var(--text);background:var(--white);border:1px solid var(--g200);border-radius:var(--rmd);transition:var(--trf);outline:none}
+        .fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accentG)}
+        .fg textarea{min-height:120px;resize:vertical}
+        .fr{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+        .sbtn{width:100%;padding:16px;background:var(--accent);color:var(--primary);font-family:'Inter',sans-serif;font-size:14px;font-weight:700;border:none;border-radius:var(--rmd);cursor:pointer;transition:var(--tr);letter-spacing:1px;text-transform:uppercase;margin-top:8px;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+        .sbtn:hover{background:var(--accentL);transform:translateY(-2px);box-shadow:0 12px 35px rgba(201,165,74,.35)}
+
+        /* ===== FOOTER ===== */
+        .footer{background:var(--primary);padding:80px 0 0;margin-top:auto}
+        .ftt{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:50px;padding-bottom:60px;border-bottom:1px solid rgba(255,255,255,.06)}
+        .ftb{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+        .ftb img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);background:#fff}
+        .ftb span{font-family:'Playfair Display',serif;color:var(--white);font-size:19px;font-weight:700}
+        .ftd{color:rgba(255,255,255,.45);font-size:14px;line-height:1.8}
+        .fc h4{font-family:'Playfair Display',serif;color:var(--white);font-size:17px;font-weight:600;margin-bottom:22px;padding-bottom:12px;position:relative}
+        .fc h4::after{content:'';position:absolute;bottom:0;left:0;width:28px;height:2px;background:var(--accent)}
+        .fl{list-style:none}
+        .fl li{margin-bottom:11px}
+        .fl a{color:rgba(255,255,255,.45);text-decoration:none;font-size:13.5px;transition:var(--trf);display:inline-flex;align-items:center;gap:7px;cursor:pointer}
+        .fl a::before{content:'';width:5px;height:1px;background:var(--accent);transition:var(--trf)}
+        .fl a:hover{color:var(--accent);padding-left:5px}
+        .ftbot{padding:24px 0;display:flex;align-items:center;justify-content:space-between}
+        .ftbot p{color:rgba(255,255,255,.3);font-size:12.5px}
+        .ftbot a{color:var(--accent);text-decoration:none}
+
+        /* ===== RESPONSIVE ===== */
+        @media(max-width:1200px){.svg{grid-template-columns:repeat(2,1fr)}.tmg{grid-template-columns:repeat(3,1fr)}}
+        @media(max-width:1024px){.container{padding:0 28px}.hero h1{font-size:52px}.sh h2{font-size:38px}.about-g{gap:50px}.prg{grid-template-columns:repeat(2,1fr);gap:36px}.prl{display:none}.ftt{grid-template-columns:1fr 1fr;gap:36px}.tsg{grid-template-columns:1fr}.aug{grid-template-columns:1fr}}
+        @media(max-width:768px){
+            .container{padding:0 20px}.hb{display:flex}
+            .nm{position:fixed;top:0;right:-100%;width:82%;max-width:360px;height:100vh;background:var(--primary);flex-direction:column;align-items:flex-start;padding:100px 36px 40px;gap:4px;transition:right .45s cubic-bezier(.65,0,.35,1);box-shadow:-10px 0 50px rgba(0,0,0,.4);z-index:9001;overflow-y:auto}
+            .nm.open{right:0}.nm a{font-size:15px;padding:14px 0;width:100%;border-bottom:1px solid rgba(255,255,255,.04)}.nm a::after{display:none}
+            .ncta{margin-top:16px;width:100%;justify-content:center}
+            .hero-c{padding-top:100px;padding-bottom:60px}.hero h1{font-size:36px}.hero-d{font-size:15px}.hero-mt{gap:28px;flex-wrap:wrap}.hmv{font-size:32px}.hero-btns{flex-direction:column;align-items:center}
+            .sh h2{font-size:30px}.sh{margin-bottom:45px}
+            .page-view{padding-top:80px}
+            .about,.services,.process,.team,.authors,.testimonials,.contact{padding-bottom:80px}
+            .about-g{grid-template-columns:1fr;gap:36px}.about-acc{display:none}.about-ck{grid-template-columns:1fr}.about-txt h2{font-size:30px}
+            .svg{grid-template-columns:1fr}.stsg{grid-template-columns:repeat(2,1fr);gap:30px;padding:30px}.stn{font-size:38px}.prg{grid-template-columns:1fr}.tmg{grid-template-columns:repeat(2,1fr)}
+            .au{flex-direction:column;text-align:center}
+            .ctg{grid-template-columns:1fr}.ctf{padding:30px 22px}.fr{grid-template-columns:1fr}
+            .ftt{grid-template-columns:1fr;gap:28px}.ftbot{flex-direction:column;gap:10px;text-align:center}
+        }
+        @media(max-width:480px){.hero h1{font-size:28px}.sh h2{font-size:26px}.tmg{grid-template-columns:1fr}.nb h3{font-size:15px}.nb img{width:38px;height:38px}}
+    </style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+    <div class="pl-inner">
+        <div class="pl-ring"><img src="logo.jpg" alt="Book Growth Hub Agency"></div>
+        <div class="pl-brand">Book Growth <span>Hub</span></div>
+        <div class="pl-sub">Agency</div>
+        <div class="pl-bw"><div class="pl-bar" id="plB"></div></div>
+        <div class="pl-pct" id="plP">0%</div>
+    </div>
+</div>
+
+<!-- PAGE TRANSITION OVERLAY -->
+<div class="page-tr" id="pageTr">
+    <div class="panel" id="trPanel"></div>
+    <div class="panel-logo" id="trLogo"><img src="logo.jpg" alt=""><span>Book Growth Hub</span></div>
+</div>
+
+<!-- MOBILE OVERLAY -->
+<div class="mob-ov" id="mobOv"></div>
+
+<!-- NAVBAR -->
+<nav class="nav fix" id="navbar">
+    <div class="nw">
+        <a href="#hero" class="nb" data-nav>
+            <img src="logo.jpg" alt="Book Growth Hub Agency">
+            <div><h3>Book Growth Hub</h3><em>Agency</em></div>
+        </a>
+        <ul class="nm" id="navM">
+            <li><a href="#hero" class="on" data-nav>Home</a></li>
+            <li><a href="#about" data-nav>About</a></li>
+            <li><a href="#services" data-nav>Services</a></li>
+            <li><a href="#process" data-nav>Process</a></li>
+            <li><a href="#team" data-nav>Team</a></li>
+            <li><a href="#authors" data-nav>Authors</a></li>
+            <li><a href="#testimonials" data-nav>Testimonials</a></li>
+            <li><a href="#contact" class="ncta" data-nav>Get Started</a></li>
+        </ul>
+        <div class="hb" id="hb"><span></span><span></span><span></span></div>
+    </div>
+</nav>
+
+<!-- MAIN CONTENT WRAPPER -->
+<main id="mainContent">
+
+    <!-- HERO PAGE -->
+    <section class="hero page-view active-page" id="hero">
+        <div class="hero-bg"><img src="COMPANY.png" alt="Book Growth Hub Agency"></div>
+        <div class="hero-grad"></div>
+        <div class="hero-pts" id="hPts"></div>
+        <div class="hero-c">
+            <div class="hero-ey"><i class="fas fa-star"></i><span>Trusted Book Marketing Agency</span></div>
+            <h1>Grow Your Book's <span class="gl">Reach</span> & Impact</h1>
+            <p class="hero-d">We help authors amplify their presence, optimize their Amazon listings, and build lasting brands that connect with readers worldwide.</p>
+            <div class="hero-btns">
+                <a href="#contact" class="btn btn-g" data-nav><i class="fas fa-rocket"></i> Start Your Journey</a>
+                <a href="#services" class="btn btn-o" data-nav><i class="fas fa-th-large"></i> Explore Services</a>
+            </div>
+            <div class="hero-mt">
+                <div class="hmi"><div class="hmv" data-hc="150">0</div><div class="hml">Authors Served</div></div>
+                <div class="hmi"><div class="hmv" data-hc="500">0</div><div class="hml">Books Marketed</div></div>
+                <div class="hmi"><div class="hmv" data-hc="98">0</div><div class="hml">% Satisfaction</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT PAGE -->
+    <section class="about page-view" id="about">
+        <div class="container">
+            <div class="about-g">
+                <div class="about-vis rv">
+                    <!-- FIXED IMAGE ISSUE HERE - REPLACED WITH LOGO -->
+                    <div class="about-img"><img src="logo.jpg" alt="Book Growth Hub Agency Logo"></div>
+                    <div class="about-acc"></div>
+                    <div class="about-bdg"><span class="b">5+</span><span class="s">Years of<br>Experience</span></div>
+                </div>
+                <div class="about-txt rv">
+                    <div class="stag">Who We Are</div>
+                    <h2>Your Trusted Partner in Book Growth</h2>
+                    <div class="gln" style="margin:20px 0"></div>
+                    <p class="about-p">At <strong>Book Growth Hub Agency</strong>, we specialize in helping authors reach their full potential. Our dedicated team of marketing strategists, branding experts, and Amazon optimization specialists work together to ensure your book gets the attention it deserves.</p>
+                    <p class="about-p">From debut authors to seasoned writers, we tailor our strategies to meet your unique goals. We believe every book has the power to change lives — and our mission is to put it in front of the right readers.</p>
+                    <div class="about-ck">
+                        <div class="cki"><div class="ckic"><i class="fas fa-chart-line"></i></div><div><h4>Data-Driven</h4><p>Results backed by analytics</p></div></div>
+                        <div class="cki"><div class="ckic"><i class="fas fa-users"></i></div><div><h4>Dedicated Team</h4><p>7+ professionals at your service</p></div></div>
+                        <div class="cki"><div class="ckic"><i class="fas fa-bullseye"></i></div><div><h4>Targeted Approach</h4><p>Strategies built for your genre</p></div></div>
+                        <div class="cki"><div class="ckic"><i class="fas fa-handshake"></i></div><div><h4>Author-First</h4><p>Your vision, our expertise</p></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES PAGE -->
+    <section class="services page-view" id="services">
+        <div class="container">
+            <div class="sh rv">
+                <div class="stag">What We Offer</div>
+                <h2>Our Professional Services</h2>
+                <p>Comprehensive solutions designed to elevate your book's visibility, grow your readership, and build your author brand.</p>
+                <div class="gln"></div>
+            </div>
+            <div class="svg stg rv">
+                <div class="sv"><div class="svic"><i class="fas fa-bullhorn"></i></div><h3>Advertising Management</h3><p>Strategic ad campaigns across Amazon, Facebook, and Google to maximize your book's visibility and drive consistent sales.</p></div>
+                <div class="sv"><div class="svic"><i class="fas fa-newspaper"></i></div><h3>Media Outreach</h3><p>We connect your book with journalists, bloggers, podcasters, and media outlets to generate buzz and credibility.</p></div>
+                <div class="sv"><div class="svic"><i class="fab fa-amazon"></i></div><h3>Amazon Optimization</h3><p>From keyword research to listing optimization, we ensure your book ranks higher and converts browsers into buyers.</p></div>
+                <div class="sv"><div class="svic"><i class="fas fa-envelope-open-text"></i></div><h3>Email Campaigns</h3><p>Build and nurture your reader list with targeted email sequences that keep your audience engaged and eager for more.</p></div>
+                <div class="sv"><div class="svic"><i class="fas fa-palette"></i></div><h3>Author Branding</h3><p>Craft a compelling personal brand that resonates with your audience and establishes you as a leader in your genre.</p></div>
+                <div class="sv"><div class="svic"><i class="fas fa-chart-bar"></i></div><h3>Book Marketing</h3><p>End-to-end marketing strategies including launch plans, social media campaigns, and reader engagement programs.</p></div>
+                <div class="sv"><div class="svic"><i class="fas fa-film"></i></div><h3>Children's Book Animation</h3><p>Bring your children's book to life with professional animation that captivates young audiences and boosts engagement.</p></div>
+                <div class="sv"><div class="svic"><i class="fab fa-youtube"></i></div><h3>YouTube Channel Creation</h3><p>We set up, brand, and manage your YouTube channel to reach new audiences and showcase your books through video.</p></div>
+            </div>
+        </div>
+        
+        <div class="stats rv">
+            <div class="container">
+                <div class="stsg stg rv">
+                    <div class="sti"><span class="stn" data-ct="150">0</span><span class="sts">+</span><p class="stl">Authors Served</p></div>
+                    <div class="sti"><span class="stn" data-ct="500">0</span><span class="sts">+</span><p class="stl">Books Marketed</p></div>
+                    <div class="sti"><span class="stn" data-ct="50">0</span><span class="sts">+</span><p class="stl">Campaigns Launched</p></div>
+                    <div class="sti"><span class="stn" data-ct="98">0</span><span class="sts">%</span><p class="stl">Client Satisfaction</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS PAGE -->
+    <section class="process page-view" id="process">
+        <div class="container">
+            <div class="sh rv">
+                <div class="stag">How It Works</div>
+                <h2>Our Simple Process</h2>
+                <p>We've streamlined our approach so you can focus on writing while we handle the growth.</p>
+                <div class="gln"></div>
+            </div>
+            <div class="prg stg rv">
+                <div class="prl"></div>
+                <div class="prs"><div class="prn">1</div><h3>Discovery Call</h3><p>We learn about your book, goals, and audience to build a tailored strategy.</p></div>
+                <div class="prs"><div class="prn">2</div><h3>Strategy Design</h3><p>Our team crafts a comprehensive marketing plan built around your needs.</p></div>
+                <div class="prs"><div class="prn">3</div><h3>Execution</h3><p>We launch and manage all campaigns, keeping you informed every step.</p></div>
+                <div class="prs"><div class="prn">4</div><h3>Growth & Scale</h3><p>We analyze results, optimize performance, and scale for maximum impact.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM PAGE -->
+    <section class="team page-view" id="team">
+        <div class="container">
+            <div class="sh rv">
+                <div class="stag">Our People</div>
+                <h2>Meet Our Expert Team</h2>
+                <p>Passionate professionals dedicated to helping authors achieve extraordinary results.</p>
+                <div class="gln"></div>
+            </div>
+            <div class="tmg stg rv">
+                <div class="tm"><div class="tmph"><img src="jeffff.jpg" alt="Jeffrey Haberman"></div><div class="tmi"><h3>Jeffrey Haberman</h3><div class="rl">Founder & CEO</div><a href="mailto:jeffreyhaberman@bookgrowthhubagency.com" class="eml"><i class="fas fa-envelope"></i> jeffreyhaberman@bookgrowthhubagency.com</a></div></div>
+                <div class="tm"><div class="tmph"><img src="clara.jpg" alt="Clara Bennett"></div><div class="tmi"><h3>Clara Bennett</h3><div class="rl">Marketing Director</div><a href="mailto:clarabennett@bookgrowthhubagency.com" class="eml"><i class="fas fa-envelope"></i> clarabennett@bookgrowthhubagency.com</a></div></div>
+                <div class="tm"><div class="tmph"><img src="angel.jpg" alt="Angela Wesley"></div><div class="tmi"><h3>Angela Wesley</h3><div class="rl">Brand Strategist</div><a href="mailto:angela@bookgrowthhubagency.com" class="eml"><i class="fas fa-envelope"></i> angela@bookgrowthhubagency.com</a></div></div>
+                <div class="tm"><div class="tmph"><img src="ISSACC.png" alt="Isaac Cassell"></div><div class="tmi"><h3>Isaac Cassell</h3><div class="rl">Amazon Specialist</div><a href="mailto:isaaccassell@bookgrowthhubagency.com" class="eml"><i class="fas fa-envelope"></i> isaaccassell@bookgrowthhubagency.com</a></div></div>
+                <div class="tm"><div class="tmph"><img src="stell.jpg" alt="Stella Forbes"></div><div class="tmi"><h3>Stella Forbes</h3><div class="rl">Content Manager</div><a href="mailto:stella@bookgrowthhubagency.com" class="eml"><i class="fas fa-envelope"></i> stella@bookgrowthhubagency.com</a></div></div>
+                <div class="tm"><div class="tmph"><img src="jeff.jpg" alt="Joel Avey"></div><div class="tmi"><h3>Joel Avey</h3><div class="rl">Ad Campaign Manager</div><a href="mailto:joel@bookgrowthhubagency.com" class="eml"><i class="fas fa-envelope"></i> joel@bookgrowthhubagency.com</a></div></div>
+                <div class="tm"><div class="tmph"><img src="will.jpg" alt="Rose Will"></div><div class="tmi"><h3>Rose Will</h3><div class="rl">Client Relations</div><a href="mailto:rosewill@bookgrowthhubagency.com" class="eml"><i class="fas fa-envelope"></i> rosewill@bookgrowthhubagency.com</a></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AUTHORS PAGE -->
+    <section class="authors page-view" id="authors">
+        <div class="container">
+            <div class="sh rv">
+                <div class="stag">Our Authors</div>
+                <h2>Authors We Work With</h2>
+                <p>We are proud to partner with talented authors who trust us to grow their books and brands.</p>
+                <div class="gln"></div>
+            </div>
+            <div class="aug stg rv">
+                <div class="au">
+                    <img src="emily image.jpg" alt="Emily Winfield Martin" class="auav">
+                    <div class="aui"><h3>Emily Winfield Martin</h3><a href="https://www.amazon.com/stores/Emily-Winfield-Martin/author/B003IUDJ3Y?ref=ap_rdr&shoppingPortalEnabled=true" target="_blank" rel="noopener noreferrer" class="amz"><i class="fab fa-amazon"></i> View on Amazon</a></div>
+                </div>
+                <div class="au">
+                    <img src="diane image.webp" alt="Diane Alber" class="auav">
+                    <div class="aui"><h3>Diane Alber</h3><a href="https://www.amazon.com/stores/Diane-Alber/author/B00J3YRL56?ref=ap_rdr&shoppingPortalEnabled=true" target="_blank" rel="noopener noreferrer" class="amz"><i class="fab fa-amazon"></i> View on Amazon</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS PAGE -->
+    <section class="testimonials page-view" id="testimonials">
+        <div class="container">
+            <div class="sh rv">
+                <div class="stag">Client Stories</div>
+                <h2>What Our Authors Say</h2>
+                <p>Hear directly from the authors who have experienced the Book Growth Hub difference.</p>
+                <div class="gln"></div>
+            </div>
+            <div class="tsg stg rv">
+                <div class="tsc">
+                    <div class="tsc-quote">"</div>
+                    <div class="tsc-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="tsc-text">Book Growth Hub Agency completely transformed my book's visibility. Within weeks of working with their team, my Amazon rankings improved dramatically. Their strategic approach to advertising and branding is truly world-class.</p>
+                    <div class="tsc-author">
+                        <img src="logo.jpg" alt="Author" class="tsc-avatar">
+                        <div><div class="tsc-name">Verified Author</div><div class="tsc-role">Published Author</div></div>
+                    </div>
+                </div>
+                <div class="tsc">
+                    <div class="tsc-quote">"</div>
+                    <div class="tsc-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="tsc-text">I was struggling to get my children's book noticed until I found Book Growth Hub. They handled everything from Amazon optimization to creating animated content for my YouTube channel. The results exceeded all my expectations.</p>
+                    <div class="tsc-author">
+                        <img src="logo.jpg" alt="Author" class="tsc-avatar">
+                        <div><div class="tsc-name">Verified Author</div><div class="tsc-role">Children's Book Author</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT PAGE -->
+    <section class="contact page-view" id="contact">
+        <div class="container">
+            <div class="ctg">
+                <div class="ctl rv">
+                    <div class="stag">Get In Touch</div>
+                    <h2>Let's Grow Your Book Together</h2>
+                    <div class="gln" style="margin:18px 0"></div>
+                    <p>Ready to take your book to the next level? Reach out and let's discuss how we can help you achieve your goals.</p>
+                    <div class="cil">
+                        <div class="ci"><div class="ciic"><i class="fas fa-envelope"></i></div><div><h4>Email Us</h4><a href="mailto:jeffreyhaberman@bookgrowthhubagency.com">jeffreyhaberman@bookgrowthhubagency.com</a></div></div>
+                        <div class="ci"><div class="ciic"><i class="fas fa-globe"></i></div><div><h4>Website</h4><p>www.bookgrowthhubagency.com</p></div></div>
+                        <div class="ci"><div class="ciic"><i class="fas fa-clock"></i></div><div><h4>Working Hours</h4><p>Monday – Friday, 9:00 AM – 6:00 PM EST</p></div></div>
+                    </div>
+                </div>
+                <div class="ctf rv">
+                    <h3>Send Us a Message</h3>
+                    <form action="https://formspree.io/f/xwlkdqqe" method="POST" id="cForm">
+                        <div class="fr">
+                            <div class="fg"><label>First Name *</label><input type="text" name="firstName" placeholder="Your first name" required></div>
+                            <div class="fg"><label>Last Name *</label><input type="text" name="lastName" placeholder="Your last name" required></div>
+                        </div>
+                        <div class="fg"><label>Email Address *</label><input type="email" name="email" placeholder="your@email.com" required></div>
+                        <div class="fg"><label>Service Interested In</label>
+                            <select name="service"><option value="">Select a service</option><option>Advertising Management</option><option>Media Outreach</option><option>Amazon Optimization</option><option>Email Campaigns</option><option>Author Branding</option><option>Book Marketing</option><option>Children's Book Animation</option><option>YouTube Channel Creation</option></select>
+                        </div>
+                        <div class="fg"><label>Your Message *</label><textarea name="message" placeholder="Tell us about your book and goals..." required></textarea></div>
+                        <button type="submit" class="sbtn" id="subBtn"><i class="fas fa-paper-plane"></i> Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main> <!-- /MAIN CONTENT WRAPPER -->
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="ftt">
+            <div class="fc"><div class="ftb"><img src="logo.jpg" alt="Book Growth Hub Agency"><span>Book Growth Hub</span></div><p class="ftd">We help authors amplify their presence, optimize their Amazon listings, and build lasting brands that connect with readers worldwide.</p></div>
+            <div class="fc"><h4>Quick Links</h4><ul class="fl"><li><a data-nav href="#hero">Home</a></li><li><a data-nav href="#about">About Us</a></li><li><a data-nav href="#services">Services</a></li><li><a data-nav href="#team">Our Team</a></li><li><a data-nav href="#contact">Contact</a></li></ul></div>
+            <div class="fc"><h4>Services</h4><ul class="fl"><li><a data-nav href="#services">Advertising Management</a></li><li><a data-nav href="#services">Amazon Optimization</a></li><li><a data-nav href="#services">Author Branding</a></li><li><a data-nav href="#services">Book Marketing</a></li><li><a data-nav href="#services">Email Campaigns</a></li></ul></div>
+            <div class="fc"><h4>Reach Us</h4><ul class="fl"><li><a href="mailto:jeffreyhaberman@bookgrowthhubagency.com">Email Us</a></li><li><a data-nav href="#contact">Send a Message</a></li><li><a data-nav href="#testimonials">Testimonials</a></li><li><a data-nav href="#authors">Our Authors</a></li></ul></div>
+        </div>
+        <div class="ftbot">
+            <p>&copy; 2024 Book Growth Hub Agency. All rights reserved.</p>
+            <p>Empowering Authors. Growing Brands.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+/* ===== PRELOADER ===== */
+(function(){
+    var b=document.getElementById('plB'),p=document.getElementById('plP'),pl=document.getElementById('preloader'),pg=0,iv;
+    function a(){if(pg<80){pg+=Math.random()*3+1;if(pg>80)pg=80;b.style.width=pg+'%';p.textContent=Math.floor(pg)+'%'}}
+    iv=setInterval(a,50);
+    window.addEventListener('load',function(){
+        clearInterval(iv);
+        var fi=setInterval(function(){
+            pg+=3;if(pg>=100){pg=100;b.style.width='100%';p.textContent='100%';clearInterval(fi);
+            setTimeout(function(){pl.classList.add('done');setTimeout(function(){pl.style.display='none';heroCount();doReveal()},800)},300)}
+            else{b.style.width=pg+'%';p.textContent=Math.floor(pg)+'%'}
+        },25)
+    })
+})();
+
+/* ===== PARTICLES ===== */
+(function(){var c=document.getElementById('hPts');if(!c)return;for(var i=0;i<25;i++){var p=document.createElement('div');p.className='hpt';var s=Math.random()*3+1;p.style.width=s+'px';p.style.height=s+'px';p.style.left=Math.random()*100+'%';p.style.animationDuration=(Math.random()*18+10)+'s';p.style.animationDelay=(Math.random()*12)+'s';c.appendChild(p)}})();
+
+/* ===== MOBILE MENU ===== */
+var hb=document.getElementById('hb'),nm=document.getElementById('navM'),mo=document.getElementById('mobOv');
+hb.onclick=function(){hb.classList.toggle('open');nm.classList.toggle('open');mo.classList.toggle('show');document.body.style.overflow=nm.classList.contains('open')?'hidden':''};
+mo.onclick=clM;
+function clM(){hb.classList.remove('open');nm.classList.remove('open');mo.classList.remove('show');document.body.style.overflow=''}
+
+/* ===== SPA PAGE-BY-PAGE NAVIGATION (HORIZONTAL SWIPE) ===== */
+var trPanel=document.getElementById('trPanel');
+var trLogo=document.getElementById('trLogo');
+var isMoving=false;
+
+function changePage(targetId) {
+    if(isMoving) return;
+    var targetEl = document.getElementById(targetId);
+    if(!targetEl) return;
+    
+    isMoving = true;
+
+    // 1. Sweep curtain IN (Left to Right)
+    trPanel.style.transition = 'none';
+    trPanel.style.left = '0';
+    trPanel.style.right = 'auto';
+    trPanel.style.width = '0';
+    trPanel.style.height = '100%';
+    trLogo.style.opacity = '0';
+    trLogo.style.transform = 'translate(-50%,-50%) scale(.7)';
+    trPanel.offsetHeight; // force reflow
+
+    trPanel.style.transition = 'width .45s cubic-bezier(.65,0,.35,1)';
+    trPanel.style.width = '100%';
+
+    // Show logo in middle of transition
+    setTimeout(function(){
+        trLogo.style.transition = 'opacity .3s ease, transform .3s ease';
+        trLogo.style.opacity = '1';
+        trLogo.style.transform = 'translate(-50%,-50%) scale(1)';
+    }, 250);
+
+    // 2. While covered, hide old page, show new page
+    setTimeout(function(){
+        // Hide all pages
+        document.querySelectorAll('.page-view').forEach(function(page) {
+            page.classList.remove('active-page');
+        });
+        
+        // Show target page
+        targetEl.classList.add('active-page');
+        
+        // Reset animations on the new page so they re-trigger
+        targetEl.querySelectorAll('.rv, .rvl, .rvr, .stg, .vis').forEach(function(el) {
+            el.classList.remove('vis');
+        });
+
+        // Update active class on navbar links
+        document.querySelectorAll('[data-nav]').forEach(function(link) {
+            link.classList.remove('on');
+            if(link.getAttribute('href') === '#' + targetId) {
+                link.classList.add('on');
+            }
+        });
+
+        // Scroll to the very top since it's a new page
+        window.scrollTo(0,0);
+
+        // 3. Sweep curtain OUT (Left to Right)
+        setTimeout(function(){
+            trLogo.style.opacity = '0';
+            trLogo.style.transform = 'translate(-50%,-50%) scale(1.1)';
+
+            trPanel.style.transition = 'none';
+            trPanel.style.left = 'auto';
+            trPanel.style.right = '0';
+            trPanel.style.width = '100%';
+            trPanel.offsetHeight; // force reflow
+
+            trPanel.style.transition = 'width .45s cubic-bezier(.65,0,.35,1)';
+            trPanel.style.width = '0';
+
+            // 4. Clean up and trigger animations
+            setTimeout(function(){
+                isMoving = false;
+                doReveal();
+                runCtr();
+            }, 500);
+
+        }, 350);
+
+    }, 550);
+}
+
+// Attach event listener to all nav/footer links
+document.querySelectorAll('[data-nav]').forEach(function(link){
+    link.addEventListener('click',function(e){
+        e.preventDefault();
+        clM();
+        var href = this.getAttribute('href');
+        if(href && href.startsWith('#')) {
+            var targetId = href.substring(1);
+            changePage(targetId);
+        }
+    })
+});
+
+/* ===== SCROLL REVEAL (Works for the active page) ===== */
+function doReveal(){
+    var activePage = document.querySelector('.page-view.active-page');
+    if(!activePage) return;
+    
+    activePage.querySelectorAll('.rv, .rvl, .rvr, .stg').forEach(function(el){
+        if(el.getBoundingClientRect().top < window.innerHeight*.9 && !el.classList.contains('vis')){
+            el.classList.add('vis');
+        }
+    });
+}
+window.addEventListener('scroll', doReveal);
+
+/* ===== COUNTERS ===== */
+function runCtr(){
+    var activePage = document.querySelector('.page-view.active-page');
+    if(!activePage) return;
+
+    var cs = activePage.querySelectorAll('[data-ct]');
+    if(!cs.length) return;
+    
+    if(cs[0].getBoundingClientRect().top < window.innerHeight - 50 && !cs[0].classList.contains('counted')){
+        cs[0].classList.add('counted'); // mark to avoid rerunning
+        cs.forEach(function(c){
+            var t=+c.dataset.ct, cu=0, st=t/(2200/16);
+            (function u(){
+                cu+=st;
+                if(cu<t){c.textContent=Math.floor(cu); requestAnimationFrame(u);}
+                else {c.textContent=t;}
+            })();
+        });
+    }
+}
+window.addEventListener('scroll', runCtr);
+
+function heroCount(){
+    document.querySelectorAll('[data-hc]').forEach(function(c){
+        var t=+c.dataset.hc, cu=0, st=t/(2200/16);
+        setTimeout(function(){
+            (function u(){
+                cu+=st;
+                if(cu<t){c.textContent=Math.floor(cu); requestAnimationFrame(u);}
+                else {c.textContent=t;}
+            })();
+        }, 300);
+    });
+}
+
+/* ===== FORM ===== */
+document.getElementById('cForm').addEventListener('submit',function(){
+    var b=document.getElementById('subBtn');
+    b.innerHTML='<i class="fas fa-spinner fa-spin"></i> Sending...';
+    b.disabled=true;
+    b.style.opacity='.7';
+});
+
+/* ===== INITIALIZE ===== */
+document.addEventListener('DOMContentLoaded',function(){
+    setTimeout(doReveal,100);
+});
+</script>
+</body>
+</html>
